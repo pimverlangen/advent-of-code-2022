@@ -7,8 +7,8 @@ import (
 )
 
 func CreateElfList() []Elf {
-	elves := make([]Elf, 0)
-	var elf = CreateElf()
+	var elves []Elf
+	elf := CreateElf()
 
 	onLineRead := func(line string) {
 		if line == "" {
@@ -45,4 +45,12 @@ func DayOneB() []Elf {
 	elves := CreateElfList()
 
 	return elves[0:3]
+}
+
+func DayOne() {
+	log.Print("Day 1:")
+	dayOneAResult := DayOneA()
+	log.Printf("Answer A: %v", dayOneAResult.Totalcalories())
+	dayOneBResult := DayOneB()
+	log.Printf("Answer B: %v", Totalcalories(dayOneBResult))
 }
