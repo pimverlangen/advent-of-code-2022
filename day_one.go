@@ -61,5 +61,5 @@ func DayOneB() []Elf {
 		return elves[i].Totalcalories() > elves[j].Totalcalories()
 	})
 
-	return []Elf{elves[0], elves[1], elves[2]}
+	return elves[0:3]
 }
