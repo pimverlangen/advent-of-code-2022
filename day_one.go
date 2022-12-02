@@ -48,7 +48,7 @@ func DayOneB() []Elf {
 }
 
 func DayOne() {
-	log.Print("Day 1:")
+	log.Print("Day 1")
 	dayOneAResult := DayOneA()
 	log.Printf("Answer A: %v", dayOneAResult.Totalcalories())
 	dayOneBResult := DayOneB()

@@ -127,7 +127,7 @@ func DayTwoB() int64 {
 }
 
 func DayTwo() {
-	log.Print("Day 2:")
+	log.Print("Day 2")
 	dayTwoResult := DayTwoA()
 	log.Printf("Answer A: %v", dayTwoResult)
 	dayTwoBResult := DayTwoB()
