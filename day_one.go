@@ -26,7 +26,7 @@ func CreateElfList() []Elf {
 		}
 	}
 
-	ReadFile(onLineRead)
+	ReadFile("./resources/day_one_input.txt", onLineRead)
 
 	sort.SliceStable(elves, func(i, j int) bool {
 		return elves[i].Totalcalories() > elves[j].Totalcalories()

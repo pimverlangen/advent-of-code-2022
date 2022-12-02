@@ -6,8 +6,8 @@ import (
 	"os"
 )
 
-func ReadFile(onLineRead func(string)) {
-	f, err := os.Open("./resources/input.txt")
+func ReadFile(path string, onLineRead func(string)) {
+	f, err := os.Open(path)
 	if err != nil {
 		log.Fatal(err)
 	}
