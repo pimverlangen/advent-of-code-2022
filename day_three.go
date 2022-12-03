@@ -88,9 +88,9 @@ func (self *Rucksack) FindCommonItemInSack() Item {
 	return commonItem
 }
 
-func (self *Rucksack) Contains(character rune) bool {
+func (self *Rucksack) Contains(item Item) bool {
 	for _, v := range self.AllItems {
-		if v.Character == character {
+		if v.Character == item.Character {
 			return true
 		}
 	}
@@ -103,7 +103,7 @@ func (self *Rucksack) FindCommonItemInOtherSacks(others []Rucksack) Item {
 	for _, item := range self.AllItems {
 		findCount := 0
 		for _, sack := range others {
-			inSack := sack.Contains(item.Character)
+			inSack := sack.Contains(item)
 			if inSack {
 				findCount = findCount + 1
 			}
@@ -125,7 +125,7 @@ func (self *RucksackGroup) FindCommonItemInGroup() Item {
 	return commonItem
 }
 
-func setup() []Rucksack {
+func CreateRucksacks() []Rucksack {
 	var rucksacks []Rucksack
 
 	onLineRead := func(line string) {
@@ -164,7 +164,7 @@ func setup() []Rucksack {
 }
 
 func DayThreeA() int64 {
-	rucksacks := setup()
+	rucksacks := CreateRucksacks()
 
 	var sumPriorities int64
 
@@ -176,7 +176,7 @@ func DayThreeA() int64 {
 }
 
 func DayThreeB() int64 {
-	rucksacks := setup()
+	rucksacks := CreateRucksacks()
 
 	var groups []RucksackGroup
 
