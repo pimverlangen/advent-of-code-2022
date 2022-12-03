@@ -24,7 +24,7 @@ type RucksackGroup struct {
 	Rucksacks []Rucksack
 }
 
-func PriorityMap() map[rune]int64 {
+func PriorityMapLowercase() map[rune]int64 {
 	return map[rune]int64{
 		'a': 1,
 		'b': 2,
@@ -55,24 +55,34 @@ func PriorityMap() map[rune]int64 {
 	}
 }
 
-func PriorityMapUppercase() map[rune]int64 {
+func PriorityMapUppercase(priorityMapLowercase map[rune]int64) map[rune]int64 {
 	priorityMap := map[rune]int64{}
-	for k, v := range PriorityMap() {
+	for k, v := range priorityMapLowercase {
 		priorityMap[unicode.ToUpper(k)] = v + 26
 	}
 	return priorityMap
 }
 
-func CreateItem(char rune) Item {
-	var priority int64
-	if unicode.IsUpper(char) {
-		priority = PriorityMapUppercase()[char]
-	} else {
-		priority = PriorityMap()[char]
+func PriorityMap() map[rune]int64 {
+	// creates lowercase map
+	priorityMapLowercase := PriorityMapLowercase()
+
+	// creates uppercase map from lowercase map
+	priorityMapUppercase := PriorityMapUppercase(priorityMapLowercase)
+
+	// adds uppercase map to lowercase map
+	for k, v := range priorityMapUppercase {
+		priorityMapLowercase[k] = v
 	}
+
+	// returns combined uppercase + lowercase map
+	return priorityMapLowercase
+}
+
+func CreateItem(char rune, priorityMap map[rune]int64) Item {
 	return Item{
 		Character: char,
-		priority:  priority,
+		priority:  priorityMap[char],
 	}
 }
 
@@ -126,6 +136,8 @@ func (self *RucksackGroup) FindCommonItemInGroup() Item {
 }
 
 func CreateRucksacks() []Rucksack {
+	priorityMap := PriorityMap()
+
 	var rucksacks []Rucksack
 
 	onLineRead := func(line string) {
@@ -138,13 +150,13 @@ func CreateRucksacks() []Rucksack {
 		var allItems []Item
 
 		for _, ch := range leftCompartmentString {
-			item := CreateItem(ch)
+			item := CreateItem(ch, priorityMap)
 			allItems = append(allItems, item)
 			leftCompartment.items[ch] = item
 		}
 
 		for _, ch := range rightCompartmentString {
-			item := CreateItem(ch)
+			item := CreateItem(ch, priorityMap)
 			allItems = append(allItems, item)
 			rightCompartment.items[ch] = item
 		}
